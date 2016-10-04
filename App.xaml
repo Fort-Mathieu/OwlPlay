@@ -1,0 +1,21 @@
+﻿<Application x:Class="OwlSongs.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:OwlSongs"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+
+        <BitmapImage x:Key="Owl" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\Users\Mathieu\documents\visual studio 2015\Projects\OwlSongs\OwlSongs\Resources\Owl.ico"/>
+        <BitmapImage x:Key="play" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\Users\Mathieu\documents\visual studio 2015\Projects\OwlSongs\OwlSongs\Resources\play.png"/>
+        <BitmapImage x:Key="right" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\Users\Mathieu\documents\visual studio 2015\Projects\OwlSongs\OwlSongs\Resources\right.png"/>
+        <BitmapImage x:Key="left" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\Users\Mathieu\documents\visual studio 2015\Projects\OwlSongs\OwlSongs\Resources\left.png"/>
+        <BitmapImage x:Key="stop" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\Users\Mathieu\documents\visual studio 2015\Projects\OwlSongs\OwlSongs\Resources\stop.png"/>
+        <BitmapImage x:Key="pause" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\Users\Mathieu\documents\visual studio 2015\Projects\OwlSongs\OwlSongs\Resources\pause.png"/>
+        <BitmapImage x:Key="list" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\Users\Mathieu\Documents\Visual Studio 2015\Projects\OwlSongs\OwlSongs\Resources\list.png"/>
+        <BitmapImage x:Key="other" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\Users\Mathieu\Documents\Visual Studio 2015\Projects\OwlSongs\OwlSongs\Resources\other.png"/>
+        <BitmapImage x:Key="speakerDown" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\Users\Mathieu\Documents\Visual Studio 2015\Projects\OwlSongs\OwlSongs\Resources\speakerDown.png"/>
+        <BitmapImage x:Key="speakerUp" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\Users\Mathieu\Documents\Visual Studio 2015\Projects\OwlSongs\OwlSongs\Resources\speakerUp.png"/>
+        <BitmapImage x:Key="mute" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\Users\Mathieu\Documents\Visual Studio 2015\Projects\OwlSongs\OwlSongs\Resources\sperkerMute.png"/>
+
+    </Application.Resources>
+</Application>

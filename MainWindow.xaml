@@ -1,0 +1,233 @@
+﻿<Window x:Class="OwlSongs.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OwlSongs"
+        mc:Ignorable="d"
+        Title="OwlPlay" Height="405" Width="816" MinHeight="405" MinWidth="600" KeyUp="Window_KeyUp" WindowStartupLocation="CenterScreen" Icon="{DynamicResource Owl}">
+    <Window.Resources>
+        <Style x:Key="MyFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="-2" StrokeThickness="1" Stroke="Silver" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="CustomButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="bd"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter Margin="{TemplateBinding Padding}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <DockPanel MouseWheel="OnMouseWheel" Background="Black" Drop="OnDropFile" AllowDrop="True">
+        <Menu x:Name="menuHeader" DockPanel.Dock="Top">
+            <MenuItem Header="Media">
+                <MenuItem Header="Open" Click="OnClickOpen">
+                    <MenuItem.Background>
+                        <ImageBrush/>
+                    </MenuItem.Background>
+                    <MenuItem.Icon>
+                        <Image Source="{DynamicResource other}" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="Increase Volume" Click="OnClickIncrease">
+                    <MenuItem.Icon>
+                        <Image Source="{DynamicResource speakerUp}" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Decrease Volume" Click="OnClickDecrease">
+                    <MenuItem.Icon>
+                        <Image Source="{DynamicResource speakerDown}" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Mute" Click="OnClickMute">
+                    <MenuItem.Icon>
+                        <Image Source="{DynamicResource mute}" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem x:Name="menuForPlayback" Header="Playback" IsEnabled="False">
+                <MenuItem Header="Backward" Click="OnClickBackward">
+                    <MenuItem.Icon>
+                        <Image Source="{DynamicResource left}" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Forward" Click="OnClickForward">
+                    <MenuItem.Icon>
+                        <Image Source="{DynamicResource right}" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Previous" Click="OnClickBefore">
+                    <MenuItem.Icon>
+                        <Image Source="{DynamicResource left}" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Next" Click="OnClickNext">
+                    <MenuItem.Icon>
+                        <Image Source="{DynamicResource right}" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem x:Name="menuForPlayList"  Header="PlayList" IsEnabled="False"  >
+                <Menu>
+                    <ListBox  x:Name="menuPlayList2" SelectionChanged="ListBoxMediaSelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="{Binding Media}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Menu>
+            </MenuItem>
+            <MenuItem Header="Quit" Click="OnClickQuit"/>
+        </Menu>
+        <Grid x:Name="expander" Height="40" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" Panel.ZIndex="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" x:Name="buttonBefore" Content="" Width="75" Click="OnClickBefore" BorderBrush="{x:Null}" FocusVisualStyle="{DynamicResource MyFocusVisual}" ToolTip="Previous" Style="{DynamicResource CustomButtonStyle}" Cursor="Hand" IsEnabled="False">
+                <Button.Background>
+                    <ImageBrush Stretch="Uniform" ImageSource="{DynamicResource left}"/>
+                </Button.Background>
+            </Button>
+            <Button Grid.Column="2" x:Name="buttonStop" Content="" Width="75" Click="OnClickStop" BorderBrush="{x:Null}" FocusVisualStyle="{DynamicResource MyFocusVisual}" ToolTip="Stop" Style="{DynamicResource CustomButtonStyle}" Cursor="Hand" IsEnabled="False">
+                <Button.Background>
+                    <ImageBrush Stretch="Uniform" ImageSource="{DynamicResource stop}"/>
+                </Button.Background>
+            </Button>
+            <Button Grid.Column="3" x:Name="buttonPlay" Content="" Width="75" Click="OnClickPlay" BorderBrush="{x:Null}" FocusVisualStyle="{DynamicResource MyFocusVisual}" ToolTip="Play" Style="{DynamicResource CustomButtonStyle}" Cursor="Hand" IsEnabled="False" Foreground="#FF414149">
+                <Button.Background>
+                    <ImageBrush Stretch="Uniform" ImageSource="{DynamicResource play}"/>
+                </Button.Background>
+            </Button>
+            <Button Grid.Column="4" x:Name="buttonNext" Content="" Width="75" Click="OnClickNext" BorderBrush="{x:Null}" FocusVisualStyle="{DynamicResource MyFocusVisual}" ToolTip="Next" Style="{DynamicResource CustomButtonStyle}" Cursor="Hand" IsEnabled="False">
+                <Button.Background>
+                    <ImageBrush Stretch="Uniform" ImageSource="{DynamicResource right}"/>
+                </Button.Background>
+            </Button>
+            <TextBlock Grid.Column="5" Name="textBlockTime" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FF414149" Margin="0,0,30,0">00:00:00</TextBlock>
+            <Slider Grid.Column="6" Name="sliderTime" Thumb.DragStarted="onDragStartedSlider"  Thumb.DragCompleted="onDragCompletedSlider" ValueChanged="OnValueChangedSlider" VerticalAlignment="Center" Margin="0,0,30,0" RenderTransformOrigin="0.5,0.5" MinWidth="100" IsMoveToPointEnabled="True" MouseLeftButtonUp="onMouseLeftButtonUp" />
+            <ProgressBar Grid.Column="7" Name="progressBarVolume" Width="100" Height="15" Maximum="1" Value="{Binding ElementName=mediaElement, Path=Volume}" Foreground="#FF0672B0" Margin="0,0,10,0" />
+        </Grid>
+        <MediaElement x:Name="mediaElement" MouseLeftButtonDown="OnMouseLeftButtonDownMedia" MediaEnded="OnMediaEnded" >
+            <MediaElement.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="MenuPlay"  Header="Play" Click="OnClickPlay">
+                        <MenuItem.Icon>
+                            <Image Source="{DynamicResource play}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Stop" Click="OnClickStop">
+                        <MenuItem.Icon>
+                            <Image Source="{DynamicResource stop}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Backward" Click="OnClickBackward" >
+                        <MenuItem.Icon>
+                            <Image Source="{DynamicResource left}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Forward" Click="OnClickForward">
+                        <MenuItem.Icon>
+                            <Image Source="{DynamicResource right}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Previous" Click="OnClickBefore">
+                        <MenuItem.Icon>
+                            <Image Source="{DynamicResource left}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Next" Click="OnClickNext">
+                        <MenuItem.Icon>
+                            <Image Source="{DynamicResource left}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem Header="PlayList"  >
+                        <MenuItem.Icon>
+                            <Image Source="{DynamicResource list}" />
+                        </MenuItem.Icon>
+                        <Menu>
+                            <ListBox  x:Name="menuPlayList" SelectionChanged="ListBoxMediaSelectionChanged">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <Label Content="{Binding Media}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Menu>
+                    </MenuItem>
+                    <MenuItem Header="Open" Click="OnClickOpen">
+                        <MenuItem.Icon>
+                            <Image Source="{DynamicResource other}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Increase Volume" Click="OnClickIncrease" >
+                        <MenuItem.Icon>
+                            <Image Source="{DynamicResource speakerUp}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Decrease Volume" Click="OnClickDecrease">
+                        <MenuItem.Icon>
+                            <Image Source="{DynamicResource speakerDown}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Mute" Click="OnClickMute">
+                        <MenuItem.Icon>
+                            <Image Source="{DynamicResource mute}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem Header="Quit" Click="OnClickQuit">
+                        <MenuItem.Icon>
+                            <Image Source="{DynamicResource other}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </MediaElement.ContextMenu>
+            <MediaElement.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </MediaElement.RenderTransform>
+        </MediaElement>
+    </DockPanel>
+
+</Window>
